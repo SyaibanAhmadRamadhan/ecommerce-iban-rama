@@ -1,0 +1,121 @@
+febaru :
+1. index.php kelar
+2. detail.php kelar
+3. keranjang kelar
+4. checkout kelar
+
+
+user :
+
+    1. tambahin checkbox dikeranjang (terakhit)
+
+    1. terjual
+    
+    2. edit bagian form isi data di file beli.php
+
+    3. jika waktu habis maka stock dikembalikan
+
+    3. fitur pembayaran
+
+    4. fitur konfirmasi pembayaran
+
+    5. fitur pengiriman
+
+    6. fitur paket sudah sampai
+
+    7. sesuai footer
+
+all :
+
+    1. halaman regist
+
+    2. halaman login
+
+    3. about us
+
+
+
+
+
+<td> <?php if (isset($error)){?>
+    <p>Kurang <?php echo number_format($kurang) ;?></p>
+<?php }?> 
+                
+<?php if (isset($sukses)){?>
+    <p>kembali <?php echo number_format($kembalian) ;?></p>
+<?php }?></td></tr>
+
+if (isset($_POST['beli'])){
+    $bayar = $_POST['bayar'];
+    $total = $_POST['total'];
+    $kurang = $total - $bayar;
+    $kembalian = $bayar - $total ;
+    if($bayar < $total){
+        $error=true;
+    }else{
+        $sukses=true;
+    }
+}
+
+
+
+// $keranjang2 = data("SELECT * FROM keranjang");
+// $sepeda1 = mysqli_query($koneksi,"SELECT * FROM keranjang");
+// $a = mysqli_fetch_assoc($sepeda1);
+
+// if (isset($_POST['checkout'])){
+//     $id_user_session = $_SESSION['id'];
+//     $sepeda = mysqli_query($koneksi,"SELECT * FROM keranjang WHERE id_user=$id_user_session");
+//     $array = mysqli_fetch_assoc($sepeda);
+//     $id_user = $array['id_user'];
+//     if($id_user_session != $id_user ){
+//     echo "
+//         <script>
+//         alert('tidakk ada produk yang terseida');
+//         document.location.href='keranjang.php';
+//         </script>";
+//         exit;
+//     }else{
+//         header("Location:beli.php");
+//     }
+// }
+
+
+<!-- desc produk -->
+
+            <?php foreach ($sepeda as $x) {?>
+
+                <img src="img/<?php echo $x['gambar'];?>"style="border-radius:5px; width:450px;">
+
+            <?php } ?>
+
+
+             <h4><?php echo $x ['name'];?></h4>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half"></i>
+                <i class="font">330 Terjual</i>
+              
+            <h3><?php echo 'Rp. '. number_format($x['price']);?></h3>
+            <form action="" method="post" class="custom2">
+                <span class="mx-2 "><input type="number" name="jumlah" id="jumlah" min="1" value="1" onkeyup="return checkstock()" ></span> 
+                <span class="mx-2 "><?php echo 'Tersisa '.$x['stock'].'Pcs';?></span>
+                <?php 
+                    $stock = $x['stock'];
+                    if ($stock == 0){ ?>
+                    <strong><p class="eror">STOCK HABIS</p></strong>
+                <?php } ?>
+                <strong id="cMessage" name="cMessage"></strong>
+
+                <input type="hidden" name="price" value="<?php echo $x['price'];?>">
+                <input type="hidden" name="gambar" value="<?php echo $x['gambar'];?>">
+                <input type="hidden" name="id" value="<?php echo $x['id'];?>">
+                <input type="hidden" name="name" value="<?php echo $x['name'];?>">
+                <input type="hidden" name="stock" id="stock" value="<?php echo $x['stock'];?>">
+
+                    <button name="keranjang"  >Masukan Keranjang</button>
+                    <a href="">Beli Sekarang</a>
+             </form>
+<!-- end desc produk -->
