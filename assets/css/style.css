@@ -1271,10 +1271,7 @@ section {
     font-size: 2rem;
     margin-bottom: 1rem;
  }
- .header .flex .profile .flex-btn{
-    display: flex;
-    gap:1rem;
- }
+ 
  .btn-update-profile{
    display: block;
    width: 100%;

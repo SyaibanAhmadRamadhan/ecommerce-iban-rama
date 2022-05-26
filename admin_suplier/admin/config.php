@@ -83,8 +83,7 @@ function upload(){
     $nama_file_baru .= $extensi;
     // var_dump($nama_file_baru);
     // die;
-    move_uploaded_file($tmp_file,'../img/'.$nama_file_baru);
-    move_uploaded_file($tmp_file,'./../../tugassemester2/components/img'.$nama_file_baru);
+    move_uploaded_file($tmp_file,'../../components/img'.$nama_file_baru);
     return $nama_file_baru;
 }
     

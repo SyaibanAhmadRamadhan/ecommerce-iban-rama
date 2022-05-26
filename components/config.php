@@ -124,7 +124,8 @@ function login($data){
     global $koneksi;
     $username = $data['username'];
     $password = $data['password'];
-    $Qusername = mysqli_query($koneksi,"SELECT * FROM users WHERE username='$username' && status = 1");
+    $Qusername = mysqli_query($koneksi,"SELECT * FROM users WHERE username='$username' && status = 2 OR status=1 && username='$username'");
+    $Qusername0 = mysqli_query($koneksi,"SELECT * FROM users WHERE username='$username' && status = 0");
     if (mysqli_num_rows($Qusername)>0){
         $AQusername = mysqli_fetch_assoc($Qusername);
         if (password_verify($password,$AQusername['password'])){
@@ -133,11 +134,22 @@ function login($data){
             $_SESSION['login']=true;
             header("Location:index.php");
             exit;
+        }else {
+            echo "<script>
+            alert('password anda salah');
+            document.location.href='login.php';</script>";
+            exit;
         }
+    }
+    if (mysqli_num_rows ($Qusername0)>0){
+        echo "<script>
+        alert('aktivasi akun anda');
+        document.location.href='login.php';</script>";
     }else {
-        echo "<script>alert('username tidak tersedia');
-    document.location.href='register.php'</script>";
-    exit;
+        echo "<script>
+        alert('tidak ada username yang terdaftar');
+        document.location.href='login.php';</script>";
+        exit;
     }
 }
 
